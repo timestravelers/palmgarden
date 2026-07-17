@@ -520,12 +520,105 @@
         .edit-item-row input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 41, 36, 0.08); }
 
         /* Receipt */
-        .receipt-container { padding: 20px 0; text-align: center; }
-        .receipt {
-            font-family: 'Courier New', monospace; width: 58mm; margin: 0 auto;
-            font-size: 11px; line-height: 1.5; background: var(--white); padding: 16px; 
-            border: 1.5px dashed var(--border); border-radius: var(--radius-sm);
-        }
+/* Perbaikan Modal Receipt */
+#receiptModal .modal {
+    max-width: 450px !important;
+    width: 95%;
+}
+
+#receiptModal .modal-body {
+    padding: 0;
+    background: #f8f9fa;
+}
+
+.receipt-container {
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.receipt {
+    width: 100%;
+    max-width: 350px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Perbaikan Tombol di Modal Receipt */
+#receiptModal .modal-footer {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+    gap: 10px;
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+}
+
+#receiptModal .modal-footer .btn {
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+}
+
+/* Tombol Tutup */
+#receiptModal .modal-footer .btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+#receiptModal .modal-footer .btn-secondary:hover {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+}
+
+/* Tombol Download PDF */
+#receiptModal .modal-footer .btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+}
+
+#receiptModal .modal-footer .btn-warning:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4);
+}
+
+/* Tombol Cetak Struk */
+#receiptModal .modal-footer .btn-primary {
+    background: linear-gradient(135deg, #0a1f1b 0%, #142e28 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(10, 31, 27, 0.3);
+}
+
+#receiptModal .modal-footer .btn-primary:hover {
+    background: linear-gradient(135deg, #142e28 0%, #1e463e 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(10, 31, 27, 0.4);
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 640px) {
+    #receiptModal .modal-footer {
+        grid-template-columns: 1fr;
+    }
+    
+    #receiptModal .modal-footer .btn {
+        width: 100%;
+    }
+}
 
         /* Responsive */
         @media (max-width: 1024px) {
