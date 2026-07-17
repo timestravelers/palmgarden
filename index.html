@@ -10,14 +10,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #0f2924; /* Hijau Gelap Premium */
+            --primary: #0f2924; 
             --primary-light: #1a3c34;
             --primary-accent: #2d5a52;
             --gold: #d4af37;
             --gold-light: #e5c158;
             --gold-dark: #b8941f;
             --white: #ffffff;
-            --bg: #f4f6f5; /* Background abu-abu sangat lembut */
+            --bg: #f4f6f5; 
             --bg-card: #ffffff;
             --text: #1a2b26;
             --text-light: #8a9a94;
@@ -51,7 +51,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Scrollbar Modern */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5d1; border-radius: 10px; }
@@ -59,52 +58,27 @@
 
         /* Login */
         .login-page {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 100vh; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, var(--primary) 0%, #020c0a 100%);
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+            padding: 20px; position: relative; overflow: hidden;
         }
         .login-page::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
             animation: rotate 20s linear infinite;
         }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .login-container {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 40px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--white); border-radius: 24px; padding: 40px;
+            width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            text-align: center; position: relative; z-index: 10; border: 1px solid rgba(255,255,255,0.1);
         }
 
         .logo {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 20px;
-            background: var(--white);
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-            border: 3px solid var(--bg);
-            overflow: hidden;
+            width: 90px; height: 90px; margin: 0 auto 20px; background: var(--white);
+            border-radius: 28px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2); border: 3px solid var(--bg); overflow: hidden;
         }
         .logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 25px; }
 
@@ -138,21 +112,16 @@
             color: var(--white); width: 100%; box-shadow: 0 4px 15px rgba(15, 41, 36, 0.2);
         }
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 41, 36, 0.3); }
-        
         .btn-success { background: var(--success); color: var(--white); box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2); }
         .btn-success:hover { background: #059669; transform: translateY(-1px); }
-        
         .btn-danger { background: var(--danger); color: var(--white); box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2); }
         .btn-danger:hover { background: #dc2626; transform: translateY(-1px); }
-        
         .btn-warning { background: var(--warning); color: var(--white); }
         .btn-info { background: var(--info); color: var(--white); }
         .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
         .btn-secondary:hover { background: #e5e9e7; }
-        
         .btn-sm { padding: 8px 14px; font-size: 12px; }
         .btn-xs { padding: 6px 10px; font-size: 11px; border-radius: 6px; }
-        
         .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--bg); }
 
@@ -224,10 +193,20 @@
         .page-section.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* POS Layout */
-        .pos-layout { display: grid; grid-template-columns: 1fr 360px; gap: 20px; height: 100%; }
+        /* POS Layout - DIPERBAIKI SECARA RADIKAL */
+        .pos-layout { 
+            display: flex; /* Selalu flex agar tidak pecah aneh */
+            gap: 20px; 
+            height: 100%; 
+        }
 
-        .pos-products { display: flex; flex-direction: column; overflow: hidden; }
+        .pos-products { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            min-width: 0; /* Cegar flex overflow */
+        }
         
         .pos-toolbar { display: flex; gap: 12px; margin-bottom: 16px; }
         .pos-search { position: relative; flex: 1; }
@@ -250,14 +229,16 @@
         .category-tab:not(.active):hover { border-color: var(--primary); color: var(--primary); }
 
         .products-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 16px; overflow-y: auto; padding-right: 8px; padding-bottom: 16px;
         }
 
         .product-card {
             background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
             padding: 16px; cursor: pointer; transition: var(--transition); text-align: center;
-            position: relative; overflow: hidden;
+            position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 180px; /* Tinggi seragam agar tidak aneh */
         }
         .product-card:hover {
             border-color: var(--primary); transform: translateY(-2px);
@@ -271,11 +252,13 @@
         .product-card:hover::before { opacity: 1; }
 
         .product-icon {
-            width: 64px; height: 64px; margin: 0 auto 12px; background: var(--bg);
+            width: 60px; height: 60px; margin: 0 auto 12px; background: var(--bg);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 32px; transition: var(--transition);
+            font-size: 28px; transition: var(--transition);
         }
         .product-card:hover .product-icon { transform: scale(1.05); }
+        
+        .product-info { margin-top: auto; } /* Dorong info ke bawah */
         .product-name { font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text); min-height: 34px; display: flex; align-items: center; justify-content: center; }
         .product-price { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
         .product-stock {
@@ -283,10 +266,11 @@
             padding: 4px 8px; border-radius: 6px; display: inline-block; font-weight: 500;
         }
 
-        /* Cart */
+        /* Cart - Lebarnya dipatok agar selalu di kanan */
         .pos-cart {
             background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-md);
             display: flex; flex-direction: column; height: 100%; overflow: hidden; border: 1px solid var(--border);
+            width: 360px; flex-shrink: 0; 
         }
 
         .cart-header {
@@ -448,16 +432,29 @@
         }
         .print-buttons { display: flex; gap: 10px; margin-top: 20px; justify-content: center; flex-wrap: wrap; padding: 0 24px 24px; }
 
-        /* Responsive */
+        /* Responsive Optimized */
         @media (max-width: 1024px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0; }
             .menu-toggle { display: block; }
-            .pos-layout { grid-template-columns: 1fr; }
-            .pos-cart { max-height: 400px; }
+            
+            /* Pada tablet, posisi cart tetap di kanan, namun layout di compress */
+            .pos-layout { gap: 15px; }
+            .pos-cart { width: 320px; }
         }
         @media (max-width: 768px) {
+            /* Di HP, posisi cart turun ke bawah agar memberi ruang untuk pilih produk */
+            .pos-layout { 
+                flex-direction: column; 
+                height: auto;
+                min-height: 100%;
+            }
+            .pos-cart { 
+                width: 100%; 
+                position: static;
+                max-height: 500px;
+            }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
             .stats-grid { grid-template-columns: 1fr; }
             .content-area { padding: 12px; }
