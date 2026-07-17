@@ -222,9 +222,16 @@
         .pos-search i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; transition: var(--transition); }
         .pos-search input:focus + i, .pos-search input:focus ~ i { color: var(--primary); }
 
-        .category-tabs { 
-            display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; 
-            padding-bottom: 50px; padding-top:20px; white-space: nowrap; scroll-behavior: smooth;
+         .category-tabs { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .category-tab {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: var(--white);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
         }
         .category-tabs::-webkit-scrollbar { height: 4px; }
         .category-tabs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
