@@ -5,36 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Palm Garden Cafe & Resto - POS System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #1a3c34;
-            --primary-dark: #0f2924;
-            --primary-light: #2d5a52;
+            --primary: #0f2924; /* Hijau Gelap Premium */
+            --primary-light: #1a3c34;
+            --primary-accent: #2d5a52;
             --gold: #d4af37;
             --gold-light: #e5c158;
             --gold-dark: #b8941f;
             --white: #ffffff;
-            --bg: #f5f7f6;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --info: #3498db;
-            --border: #dfe6e9;
-            --shadow: 0 2px 10px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+            --bg: #f4f6f5; /* Background abu-abu sangat lembut */
+            --bg-card: #ffffff;
+            --text: #1a2b26;
+            --text-light: #8a9a94;
+            --text-muted: #b0b8b5;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --info: #3b82f6;
+            --info-light: #dbeafe;
+            --border: #e5e9e7;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         html, body {
             height: 100%;
             overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--bg);
             color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        /* Scrollbar Modern */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5d1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3a0; }
 
         /* Login */
         .login-page {
@@ -42,646 +63,390 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #020c0a 100%);
             padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
+        .login-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .login-container {
             background: var(--white);
-            border-radius: 20px;
-            padding: 40px 35px;
+            border-radius: 24px;
+            padding: 40px;
             width: 100%;
             max-width: 420px;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+            border: 3px solid var(--bg);
+            overflow: hidden;
         }
+        .logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 25px; }
 
-        .brand-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-        }
+        .brand-name { font-size: 22px; font-weight: 700; color: var(--primary); letter-spacing: 2px; }
+        .brand-subtitle { font-size: 14px; color: var(--gold-dark); font-weight: 600; margin-top: 4px; }
+        .brand-tagline { font-size: 12px; color: var(--text-light); margin-top: 8px; margin-bottom: 30px; }
 
-        .brand-tagline {
-            font-size: 13px;
-            color: var(--text-light);
-            font-style: italic;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-            text-align: left;
-        }
-
+        .form-group { margin-bottom: 16px; text-align: left; }
         .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: block; font-size: 12px; font-weight: 600; color: var(--text);
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
         }
-
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-            outline: none;
-            font-family: inherit;
+            width: 100%; padding: 14px 16px; border: 2px solid var(--border);
+            border-radius: var(--radius-sm); font-size: 14px; transition: var(--transition);
+            outline: none; font-family: 'Poppins', sans-serif; background: var(--bg);
         }
-
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            border-color: var(--primary); background: var(--white);
+            box-shadow: 0 0 0 4px rgba(15, 41, 36, 0.05);
         }
 
         .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: inherit;
+            padding: 12px 20px; border: none; border-radius: var(--radius-sm);
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: var(--transition);
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: 'Poppins', sans-serif; outline: none;
         }
-
         .btn-primary {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            color: var(--white);
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white); width: 100%; box-shadow: 0 4px 15px rgba(15, 41, 36, 0.2);
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .btn-success { background: var(--success); color: var(--white); }
-        .btn-success:hover { background: #229954; }
-        .btn-danger { background: var(--danger); color: var(--white); }
-        .btn-danger:hover { background: #c0392b; }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 41, 36, 0.3); }
+        
+        .btn-success { background: var(--success); color: var(--white); box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2); }
+        .btn-success:hover { background: #059669; transform: translateY(-1px); }
+        
+        .btn-danger { background: var(--danger); color: var(--white); box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2); }
+        .btn-danger:hover { background: #dc2626; transform: translateY(-1px); }
+        
         .btn-warning { background: var(--warning); color: var(--white); }
         .btn-info { background: var(--info); color: var(--white); }
-        .btn-secondary { background: var(--text-light); color: var(--white); }
-        .btn-sm { padding: 8px 14px; font-size: 11px; }
-        .btn-xs { padding: 5px 10px; font-size: 10px; }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-        }
-        .btn-outline:hover {
-            background: var(--gold);
-            color: var(--white);
-        }
+        .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: #e5e9e7; }
+        
+        .btn-sm { padding: 8px 14px; font-size: 12px; }
+        .btn-xs { padding: 6px 10px; font-size: 11px; border-radius: 6px; }
+        
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--bg); }
 
         /* App Layout */
         .app-container { display: none; height: 100vh; overflow: hidden; }
 
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 240px;
-            height: 100vh;
-            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: var(--white);
-            padding: 20px 0;
-            overflow-y: auto;
-            z-index: 1000;
-            transition: transform 0.3s;
+            position: fixed; left: 0; top: 0; width: 250px; height: 100vh;
+            background: var(--primary); color: var(--white); padding: 24px 0;
+            overflow-y: auto; z-index: 1000; transition: transform 0.3s;
+            display: flex; flex-direction: column;
         }
-
-        .sidebar-header {
-            padding: 0 20px 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center;
-        }
-
+        .sidebar-header { padding: 0 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .sidebar-logo {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 12px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
+            width: 50px; height: 50px; margin: 0 auto 12px; background: var(--white);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); overflow: hidden;
         }
+        .sidebar-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .sidebar-brand h3 { font-size: 16px; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+        .sidebar-brand p { font-size: 11px; color: var(--gold-light); margin-top: 2px; font-weight: 500; }
 
-        .sidebar-brand h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 3px;
-            color: var(--gold-light);
-        }
-
-        .sidebar-brand p { font-size: 11px; opacity: 0.8; }
-
-        .sidebar-menu { list-style: none; padding: 15px 10px; }
-        .sidebar-menu li { margin-bottom: 5px; }
-
+        .sidebar-menu { list-style: none; padding: 16px 12px; flex: 1; }
+        .sidebar-menu li { margin-bottom: 4px; }
         .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-size: 13px;
-            font-weight: 500;
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            color: rgba(255,255,255,0.6); text-decoration: none; border-radius: var(--radius-sm);
+            transition: var(--transition); font-size: 13px; font-weight: 500; position: relative;
         }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold-light);
+        .sidebar-menu a:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+        .sidebar-menu a.active {
+            background: rgba(212, 175, 55, 0.1); color: var(--gold-light);
+            box-shadow: inset 3px 0 0 var(--gold);
         }
+        .sidebar-menu .menu-icon { font-size: 18px; width: 24px; text-align: center; }
 
-        .sidebar-menu a.active { border-left: 3px solid var(--gold); }
-        .sidebar-menu .menu-icon { font-size: 18px; width: 22px; text-align: center; }
-
-        .sidebar-footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 15px 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            background: rgba(0,0,0,0.2);
-        }
-
-        .user-info { display: flex; align-items: center; gap: 10px; }
+        .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .user-info { display: flex; align-items: center; gap: 12px; }
         .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 42px; height: 42px; border-radius: 12px;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
+            display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--primary);
         }
         .user-details h4 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-        .user-details p { font-size: 10px; opacity: 0.7; }
+        .user-details p { font-size: 11px; opacity: 0.6; text-transform: capitalize; }
 
-        .main-content {
-            margin-left: 240px;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+        .main-content { margin-left: 250px; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
         .top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background: var(--white);
-            box-shadow: var(--shadow);
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 24px; background: var(--white); border-bottom: 1px solid var(--border);
+            flex-shrink: 0; height: 70px;
+        }
+        .top-bar-left { display: flex; align-items: center; gap: 16px; }
+        .menu-toggle { display: none; background: var(--bg); color: var(--text); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 10px; font-size: 18px; cursor: pointer; }
+        
+        .page-title h1 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+        .page-title p { color: var(--text-light); font-size: 12px; font-weight: 500; }
+        
+        .top-bar-right { display: flex; align-items: center; gap: 12px; }
+        .clock-badge {
+            padding: 8px 14px; background: var(--bg); border-radius: var(--radius-sm);
+            font-size: 12px; font-weight: 600; color: var(--text-light);
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .top-bar-left { display: flex; align-items: center; gap: 12px; }
-
-        .menu-toggle {
-            display: none;
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .page-title h1 { font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 3px; }
-        .page-title p { color: var(--text-light); font-size: 12px; }
-        .top-bar-right { display: flex; align-items: center; gap: 10px; }
-
-        .content-area { flex: 1; overflow: hidden; padding: 20px; }
-
+        .content-area { flex: 1; overflow: hidden; padding: 20px; background: var(--bg); }
         .page-section { display: none; height: 100%; overflow-y: auto; }
-        .page-section.active { display: block; }
+        .page-section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* POS Layout */
-        .pos-layout {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 15px;
-            height: calc(100vh - 100px);
-        }
+        .pos-layout { display: grid; grid-template-columns: 1fr 360px; gap: 20px; height: 100%; }
 
-        .pos-products { overflow-y: auto; padding-right: 8px; }
-
-        .pos-search { margin-bottom: 15px; position: relative; }
+        .pos-products { display: flex; flex-direction: column; overflow: hidden; }
+        
+        .pos-toolbar { display: flex; gap: 12px; margin-bottom: 16px; }
+        .pos-search { position: relative; flex: 1; }
         .pos-search input {
-            width: 100%;
-            padding: 10px 15px 10px 40px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 13px;
-            outline: none;
+            width: 100%; padding: 12px 16px 12px 44px; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-size: 13px; outline: none; transition: var(--transition);
+            background: var(--white); font-family: 'Poppins', sans-serif;
         }
-        .pos-search input:focus { border-color: var(--gold); }
-        .pos-search i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 14px;
-        }
+        .pos-search input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15, 41, 36, 0.05); }
+        .pos-search i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
 
-        .category-tabs { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .category-tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+        .category-tabs::-webkit-scrollbar { height: 0; }
         .category-tab {
-            padding: 8px 16px;
-            border: 2px solid var(--border);
-            border-radius: 20px;
-            background: var(--white);
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
+            padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px;
+            background: var(--white); cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: var(--transition); white-space: nowrap; color: var(--text-light);
         }
-        .category-tab.active, .category-tab:hover {
-            border-color: var(--gold);
-            background: var(--gold);
-            color: var(--white);
-        }
+        .category-tab.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .category-tab:not(.active):hover { border-color: var(--primary); color: var(--primary); }
 
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px; overflow-y: auto; padding-right: 8px; padding-bottom: 16px;
         }
 
         .product-card {
-            background: var(--white);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
+            background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 16px; cursor: pointer; transition: var(--transition); text-align: center;
+            position: relative; overflow: hidden;
         }
         .product-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
+            border-color: var(--primary); transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            opacity: 0; transition: var(--transition);
+        }
+        .product-card:hover::before { opacity: 1; }
 
         .product-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 10px;
-            background: linear-gradient(135deg, #f5f7f6 0%, #e4e8e7 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
+            width: 64px; height: 64px; margin: 0 auto 12px; background: var(--bg);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; transition: var(--transition);
         }
-
-        .product-name { font-size: 12px; font-weight: 600; margin-bottom: 5px; color: var(--text); }
-        .product-price { font-size: 14px; font-weight: 700; color: var(--gold-dark); margin-bottom: 4px; }
+        .product-card:hover .product-icon { transform: scale(1.05); }
+        .product-name { font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text); min-height: 34px; display: flex; align-items: center; justify-content: center; }
+        .product-price { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
         .product-stock {
-            font-size: 10px;
-            color: var(--text-light);
-            background: var(--bg);
-            padding: 3px 8px;
-            border-radius: 8px;
-            display: inline-block;
+            font-size: 10px; color: var(--text-light); background: var(--bg);
+            padding: 4px 8px; border-radius: 6px; display: inline-block; font-weight: 500;
         }
 
         /* Cart */
         .pos-cart {
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow: hidden;
-            border-top: 4px solid var(--gold);
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-md);
+            display: flex; flex-direction: column; height: 100%; overflow: hidden; border: 1px solid var(--border);
         }
 
         .cart-header {
-            padding: 15px 18px;
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
+            padding: 16px 20px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--white);
         }
+        .cart-header h3 { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--text); }
+        .cart-header h3 i { color: var(--primary); }
 
-        .cart-header h3 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-
-        .cart-items { flex: 1; overflow-y: auto; padding: 15px 18px; }
-
+        .cart-items { flex: 1; overflow-y: auto; padding: 8px 12px; }
         .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 12px; padding: 12px 8px;
+            border-bottom: 1px solid var(--bg); transition: var(--transition);
+            border-radius: var(--radius-sm);
         }
+        .cart-item:hover { background: var(--bg); }
         .cart-item:last-child { border-bottom: none; }
 
         .cart-item-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--bg);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
+            width: 42px; height: 42px; background: var(--bg); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
         }
-
-        .cart-item-info { flex: 1; }
-        .cart-item-name { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .cart-item-price { font-size: 11px; color: var(--text-light); }
 
         .cart-item-qty {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg);
-            padding: 4px;
-            border-radius: 6px;
+            display: flex; align-items: center; gap: 6px; background: var(--bg);
+            padding: 4px; border-radius: 8px; flex-shrink: 0;
         }
-
         .qty-btn {
-            width: 26px;
-            height: 26px;
-            border: none;
-            border-radius: 5px;
-            background: var(--white);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary);
+            width: 26px; height: 26px; border: none; border-radius: 6px;
+            background: var(--white); cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 14px; font-weight: 700; color: var(--primary);
+            transition: var(--transition); box-shadow: var(--shadow-sm);
         }
-        .qty-btn:hover { background: var(--gold); color: var(--white); }
+        .qty-btn:hover { background: var(--primary); color: var(--white); }
+        .cart-item-qty span { font-weight: 600; min-width: 24px; text-align: center; font-size: 13px; }
+        
+        .cart-item-total { font-weight: 700; font-size: 13px; color: var(--text); min-width: 70px; text-align: right; }
+        .cart-item-remove { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 14px; padding: 4px; opacity: 0.5; transition: var(--transition); }
+        .cart-item-remove:hover { opacity: 1; }
 
-        .cart-item-qty span { font-weight: 700; min-width: 25px; text-align: center; font-size: 12px; }
-        .cart-item-total { font-weight: 700; font-size: 12px; color: var(--gold-dark); min-width: 70px; text-align: right; }
-        .cart-item-remove { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 16px; padding: 3px; }
-
-        .cart-summary {
-            padding: 15px 18px;
-            border-top: 2px solid var(--border);
-            background: linear-gradient(135deg, #f8f9f9 0%, #f5f7f6 100%);
-        }
-
-        .cart-summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; }
+        .cart-summary { padding: 16px 20px; border-top: 1px solid var(--border); background: var(--bg); }
+        .cart-summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: var(--text-light); }
+        .cart-summary-row span:last-child { font-weight: 600; color: var(--text); }
         .cart-summary-row.total {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 2px dashed var(--border);
+            font-size: 20px; font-weight: 700; color: var(--primary); margin-top: 12px;
+            padding-top: 12px; border-top: 2px dashed var(--border);
         }
+        .cart-summary-row.total span:last-child { color: var(--primary); }
 
-        .cart-actions { padding: 15px 18px; display: flex; gap: 8px; }
-        .cart-actions .btn { flex: 1; }
+        .cart-actions { padding: 16px 20px; display: flex; gap: 10px; border-top: 1px solid var(--border); }
+        .cart-actions .btn { flex: 1; padding: 14px; font-size: 14px; }
 
-        /* Cards */
+        /* Cards & Stats */
         .card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            border-top: 4px solid var(--gold);
+            background: var(--white); border-radius: var(--radius); padding: 24px;
+            box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--border);
         }
-
         .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
         }
+        .card-header h2 { font-size: 16px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
+        .card-header h2 i { color: var(--primary); }
 
-        .card-header h2 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
         .stat-card {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 18px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-left: 4px solid var(--gold);
+            background: var(--white); border-radius: var(--radius); padding: 20px;
+            box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px;
+            border: 1px solid var(--border); transition: var(--transition);
         }
-
+        .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        
         .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--white);
+            width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center;
+            justify-content: center; font-size: 20px; color: var(--white); flex-shrink: 0;
         }
-        .stat-icon.green { background: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%); }
-        .stat-icon.red { background: linear-gradient(135deg, var(--danger) 0%, #e74c3c 100%); }
-        .stat-icon.blue { background: linear-gradient(135deg, var(--info) 0%, #2980b9 100%); }
-
-        .stat-info h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-        .stat-info p { font-size: 11px; color: var(--text-light); }
+        .stat-icon.gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, var(--success) 0%, #34d399 100%); }
+        .stat-icon.red { background: linear-gradient(135deg, var(--danger) 0%, #f87171 100%); }
+        .stat-icon.blue { background: linear-gradient(135deg, var(--info) 0%, #60a5fa 100%); }
+        
+        .stat-info h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+        .stat-info p { font-size: 12px; color: var(--text-light); font-weight: 500; }
 
         /* Table */
-        .table-container { overflow-x: auto; }
+        .table-container { overflow-x: auto; margin: 0 -24px -24px; padding: 0 24px 24px; }
         table { width: 100%; border-collapse: collapse; }
-        table th, table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-size: 12px;
-            white-space: nowrap;
-        }
-        table th {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 11px;
-        }
-        table tr:hover { background: var(--bg); }
+        table th, table td { padding: 14px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; white-space: nowrap; }
+        table th { background: var(--bg); color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        table tbody tr { transition: var(--transition); }
+        table tbody tr:hover { background: var(--bg); }
 
         .badge {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 4px;
         }
-        .badge-success { background: rgba(39, 174, 96, 0.15); color: var(--success); }
-        .badge-danger { background: rgba(231, 76, 60, 0.15); color: var(--danger); }
-        .badge-warning { background: rgba(243, 156, 18, 0.15); color: var(--warning); }
-        .badge-info { background: rgba(52, 152, 219, 0.15); color: var(--info); }
+        .badge-success { background: var(--success-light); color: var(--success); }
+        .badge-danger { background: var(--danger-light); color: var(--danger); }
+        .badge-warning { background: var(--warning-light); color: var(--warning); }
+        .badge-info { background: var(--info-light); color: var(--info); }
 
         /* Modal */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 41, 36, 0.6); backdrop-filter: blur(4px); z-index: 2000;
+            align-items: center; justify-content: center; padding: 20px;
         }
-        .modal-overlay.active { display: flex; }
-
+        .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
         .modal {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 25px;
-            width: 100%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
+            background: var(--white); border-radius: var(--radius-lg); padding: 0;
+            width: 100%; max-width: 600px; max-height: 90vh; overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column;
+            animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px; border-bottom: 1px solid var(--border); flex-shrink: 0;
         }
-
-        .modal-header h2 { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .modal-header h2 { font-size: 16px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
+        .modal-header h2 i { color: var(--primary); }
         .modal-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-light);
+            background: var(--bg); border: none; width: 32px; height: 32px; border-radius: 8px;
+            cursor: pointer; color: var(--text-light); transition: var(--transition); font-size: 14px;
         }
-        .modal-footer { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+        .modal-close:hover { background: var(--danger-light); color: var(--danger); }
+        
+        .modal-body { padding: 24px; overflow-y: auto; }
+        .modal-footer { display: flex; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--border); justify-content: flex-end; flex-shrink: 0; background: var(--bg); }
 
         /* Empty State */
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); }
-        .empty-state i { font-size: 50px; margin-bottom: 10px; opacity: 0.3; }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+        .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.3; }
+        .empty-state p { font-size: 14px; font-weight: 500; }
 
-        .overlay-bg {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
+        .overlay-bg { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
         .overlay-bg.active { display: block; }
-
         #importFile { display: none; }
 
         /* Edit Transaction Items */
         .edit-item-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
-            gap: 8px;
-            align-items: center;
-            padding: 10px;
-            background: var(--bg);
-            border-radius: 8px;
-            margin-bottom: 8px;
+            display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px;
+            align-items: center; padding: 12px; background: var(--bg); border-radius: var(--radius-sm); margin-bottom: 8px;
         }
-
         .edit-item-row .item-name { font-weight: 600; font-size: 13px; }
-        .edit-item-row input {
-            padding: 6px 10px;
-            border: 2px solid var(--border);
-            border-radius: 6px;
-            font-size: 13px;
-            width: 100%;
-            outline: none;
-        }
-        .edit-item-row input:focus { border-color: var(--gold); }
+        .edit-item-row input { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; width: 100%; outline: none; font-family: 'Poppins', sans-serif; }
+        .edit-item-row input:focus { border-color: var(--primary); }
 
         /* Receipt */
         .receipt-container { padding: 20px 0; text-align: center; }
         .receipt {
-            font-family: 'Courier New', monospace;
-            width: 58mm;
-            margin: 0 auto;
-            font-size: 10px;
-            line-height: 1.4;
-            background: var(--white);
-            padding: 10px;
-            border: 1px solid var(--border);
+            font-family: 'Courier New', monospace; width: 58mm; margin: 0 auto;
+            font-size: 10px; line-height: 1.4; background: var(--white); padding: 10px; border: 1px solid var(--border);
         }
-
-        .print-buttons { display: flex; gap: 10px; margin-top: 20px; justify-content: center; flex-wrap: wrap; }
+        .print-buttons { display: flex; gap: 10px; margin-top: 20px; justify-content: center; flex-wrap: wrap; padding: 0 24px 24px; }
 
         /* Responsive */
         @media (max-width: 1024px) {
@@ -692,31 +457,25 @@
             .pos-layout { grid-template-columns: 1fr; }
             .pos-cart { max-height: 400px; }
         }
-
         @media (max-width: 768px) {
             .products-grid { grid-template-columns: repeat(2, 1fr); }
             .stats-grid { grid-template-columns: 1fr; }
-            .content-area { padding: 10px; }
+            .content-area { padding: 12px; }
             .edit-item-row { grid-template-columns: 1fr; }
         }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
     </style>
 </head>
 <body>
     <!-- Login Page -->
     <div class="login-page" id="loginPage">
         <div class="login-container">
-            <!--<div class="logo">🌴</div>-->
-            <div class="logo" style="background-image:url('logo.png');background-size:cover;background-position:center">
-    <img src="logo.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;border-radius:50%">
-</div>
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
             <div class="brand-name">PALM GARDEN</div>
-            <div style="font-size: 14px; color: var(--gold-dark); font-weight: 600; margin-bottom: 5px;">CAFE AND RESTO</div>
+            <div class="brand-subtitle">CAFE AND RESTO</div>
             <div class="brand-tagline">Good Taste Good Choice</div>
-            <form onsubmit="handleLogin(event)">
+            <form onsubmit="handleLogin(event)" style="margin-top: 20px;">
                 <div class="form-group">
                     <label><i class="fas fa-user"></i> Username</label>
                     <input type="text" id="loginUsername" placeholder="Masukkan username" required>
@@ -736,9 +495,6 @@
                     <i class="fas fa-sign-in-alt"></i> Masuk Sistem
                 </button>
             </form>
-            <!--<p style="margin-top:20px;font-size:11px;color:var(--text-light);padding:10px;background:var(--bg);border-radius:6px">
-                <i class="fas fa-info-circle"></i> Default: <strong>admin/admin123</strong> atau <strong>kasir/kasir123</strong>
-            </p>-->
         </div>
     </div>
 
@@ -746,10 +502,9 @@
     <div class="app-container" id="appContainer">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <!--<div class="sidebar-logo">🌴</div>-->
-                <div class="sidebar-logo" style="background-image:url('logo.png');background-size:cover;background-position:center">
-    <img src="logo.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;border-radius:50%">
-</div>
+                <div class="sidebar-logo">
+                    <img src="logo.png" alt="Logo">
+                </div>
                 <div class="sidebar-brand">
                     <h3>PALM GARDEN</h3>
                     <p>Cafe and Resto</p>
@@ -765,7 +520,7 @@
             </ul>
             <div class="sidebar-footer">
                 <div class="user-info">
-                    <div class="user-avatar">👤</div>
+                    <div class="user-avatar"><i class="fas fa-user"></i></div>
                     <div class="user-details">
                         <h4 id="currentUser">Administrator</h4>
                         <p id="currentRole">Admin</p>
@@ -786,6 +541,7 @@
                     </div>
                 </div>
                 <div class="top-bar-right">
+                    <div class="clock-badge"><i class="fas fa-clock"></i> <span id="liveClock">--:--</span></div>
                     <button class="btn btn-danger btn-sm" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Keluar</button>
                 </div>
             </div>
@@ -795,9 +551,11 @@
                 <div class="page-section active" id="page-pos">
                     <div class="pos-layout">
                         <div class="pos-products">
-                            <div class="pos-search">
-                                <i class="fas fa-search"></i>
-                                <input type="text" id="searchProduct" placeholder="Cari produk..." oninput="renderPOSProducts()">
+                            <div class="pos-toolbar">
+                                <div class="pos-search">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="searchProduct" placeholder="Cari produk atau item..." oninput="renderPOSProducts()">
+                                </div>
                             </div>
                             <div class="category-tabs" id="categoryTabs"></div>
                             <div class="products-grid" id="posProductsGrid"></div>
@@ -805,10 +563,10 @@
                         <div class="pos-cart">
                             <div class="cart-header">
                                 <h3><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h3>
-                                <button class="btn btn-sm btn-danger" onclick="clearCart()"><i class="fas fa-trash"></i> Hapus</button>
+                                <button class="btn btn-sm btn-outline" onclick="clearCart()"><i class="fas fa-trash"></i> Hapus</button>
                             </div>
                             <div class="cart-items" id="cartItems">
-                                <div class="empty-state"><i class="fas fa-shopping-cart"></i><p>Keranjang masih kosong</p></div>
+                                <div class="empty-state"><i class="fas fa-shopping-basket"></i><p>Keranjang masih kosong</p></div>
                             </div>
                             <div class="cart-summary" id="cartSummary" style="display:none">
                                 <div class="cart-summary-row"><span>Subtotal</span><span id="cartSubtotal">Rp 0</span></div>
@@ -828,16 +586,16 @@
                         <div class="card-header">
                             <h2><i class="fas fa-receipt"></i> Riwayat Transaksi</h2>
                         </div>
-                        <div class="filter-row" style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap">
-                            <div class="form-group" style="flex:1;min-width:150px;margin-bottom:0">
+                        <div class="filter-row" style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+                            <div class="form-group" style="flex:1;min-width:180px;margin-bottom:0">
                                 <label>Dari Tanggal</label>
                                 <input type="date" id="filterDateFrom" onchange="renderTransactions()">
                             </div>
-                            <div class="form-group" style="flex:1;min-width:150px;margin-bottom:0">
+                            <div class="form-group" style="flex:1;min-width:180px;margin-bottom:0">
                                 <label>Sampai Tanggal</label>
                                 <input type="date" id="filterDateTo" onchange="renderTransactions()">
                             </div>
-                            <div class="form-group" style="flex:1;min-width:150px;margin-bottom:0">
+                            <div class="form-group" style="flex:1;min-width:180px;margin-bottom:0">
                                 <label>Status</label>
                                 <select id="filterStatus" onchange="renderTransactions()">
                                     <option value="all">Semua</option>
@@ -871,7 +629,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h2><i class="fas fa-box"></i> Manajemen Produk</h2>
-                            <button class="btn btn-success btn-sm" onclick="openProductModal()"><i class="fas fa-plus"></i> Tambah Produk</button>
+                            <button class="btn btn-primary btn-sm" style="width:auto; box-shadow:none; background:var(--primary);" onclick="openProductModal()"><i class="fas fa-plus"></i> Tambah Produk</button>
                         </div>
                         <div class="table-container">
                             <table>
@@ -888,7 +646,7 @@
                 <div class="page-section" id="page-petty-cash">
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+                            <div class="stat-icon gold"><i class="fas fa-wallet"></i></div>
                             <div class="stat-info"><h3 id="pettyBalance">Rp 0</h3><p>Saldo Kas Kecil</p></div>
                         </div>
                         <div class="stat-card">
@@ -924,11 +682,11 @@
                             <h2><i class="fas fa-chart-line"></i> Laporan Rugi-Laba</h2>
                             <div style="display:flex;gap:10px">
                                 <button class="btn btn-warning btn-sm" onclick="exportReportPDF()"><i class="fas fa-file-pdf"></i> Export PDF</button>
-                                <button class="btn btn-success btn-sm" onclick="printReport()"><i class="fas fa-print"></i> Cetak</button>
+                                <button class="btn btn-info btn-sm" onclick="printReport()"><i class="fas fa-print"></i> Cetak</button>
                             </div>
                         </div>
-                        <div style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap">
-                            <div class="form-group" style="flex:1;min-width:150px;margin-bottom:0">
+                        <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+                            <div class="form-group" style="flex:1;min-width:180px;margin-bottom:0">
                                 <label>Periode</label>
                                 <select id="reportPeriod" onchange="renderReport()">
                                     <option value="today">Hari Ini</option>
@@ -938,11 +696,11 @@
                                     <option value="custom">Custom</option>
                                 </select>
                             </div>
-                            <div class="form-group" id="customDateFrom" style="display:none;flex:1;min-width:150px;margin-bottom:0">
+                            <div class="form-group" id="customDateFrom" style="display:none;flex:1;min-width:180px;margin-bottom:0">
                                 <label>Dari</label>
                                 <input type="date" id="reportDateFrom" onchange="renderReport()">
                             </div>
-                            <div class="form-group" id="customDateTo" style="display:none;flex:1;min-width:150px;margin-bottom:0">
+                            <div class="form-group" id="customDateTo" style="display:none;flex:1;min-width:180px;margin-bottom:0">
                                 <label>Sampai</label>
                                 <input type="date" id="reportDateTo" onchange="renderReport()">
                             </div>
@@ -961,27 +719,29 @@
                 <div class="page-section" id="page-settings">
                     <div class="card">
                         <div class="card-header"><h2><i class="fas fa-cog"></i> Pengaturan Umum</h2></div>
-                        <div class="form-group">
-                            <label><i class="fas fa-store"></i> Nama Cafe/Resto</label>
-                            <input type="text" id="settingName" value="Palm Garden Cafe and Resto">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+                            <div class="form-group">
+                                <label><i class="fas fa-store"></i> Nama Cafe/Resto</label>
+                                <input type="text" id="settingName" value="Palm Garden Cafe and Resto">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Telepon</label>
+                                <input type="text" id="settingPhone" value="(021) 1234567">
+                            </div>
+                            <div class="form-group" style="grid-column:1 / -1">
+                                <label><i class="fas fa-map-marker-alt"></i> Alamat</label>
+                                <textarea id="settingAddress" rows="2">Jl. Palm Garden No. 123</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-percentage"></i> Pajak (%)</label>
+                                <input type="number" id="settingTax" value="10" min="0" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-money-bill-wave"></i> Modal Awal Kas Kecil</label>
+                                <input type="number" id="settingPettyInit" value="1000000">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-map-marker-alt"></i> Alamat</label>
-                            <textarea id="settingAddress" rows="2">Jl. Palm Garden No. 123</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-phone"></i> Telepon</label>
-                            <input type="text" id="settingPhone" value="(021) 1234567">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-percentage"></i> Pajak (%)</label>
-                            <input type="number" id="settingTax" value="10" min="0" max="100">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fas fa-money-bill-wave"></i> Modal Awal Kas Kecil</label>
-                            <input type="number" id="settingPettyInit" value="1000000">
-                        </div>
-                        <button class="btn btn-primary" onclick="saveSettings()" style="width:auto"><i class="fas fa-save"></i> Simpan Pengaturan</button>
+                        <button class="btn btn-primary" style="width:auto; margin-top:10px;" onclick="saveSettings()"><i class="fas fa-save"></i> Simpan Pengaturan</button>
                     </div>
                     <div class="card">
                         <div class="card-header">
@@ -997,7 +757,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header"><h2><i class="fas fa-database"></i> Manajemen Data</h2></div>
-                        <p style="margin-bottom:15px;color:var(--text-light);font-size:12px">
+                        <p style="margin-bottom:16px;color:var(--text-light);font-size:13px">
                             <i class="fas fa-info-circle"></i> Export untuk backup data, Import untuk restore data dari file backup.
                         </p>
                         <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -1017,29 +777,31 @@
         <div class="modal">
             <div class="modal-header">
                 <h2><i class="fas fa-credit-card"></i> Pembayaran</h2>
-                <button class="modal-close" onclick="closeModal('paymentModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i></button>
             </div>
-            <div style="text-align:center;padding:25px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:10px;margin-bottom:20px;color:white">
-                <div style="font-size:13px;margin-bottom:8px;opacity:0.9">Total yang harus dibayar</div>
-                <div style="font-size:32px;font-weight:bold;color:var(--gold-light)" id="paymentTotal">Rp 0</div>
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-wallet"></i> Metode Pembayaran</label>
-                <select id="paymentMethod">
-                    <option value="cash">Tunai</option>
-                    <option value="debit">Debit Card</option>
-                    <option value="qris">QRIS</option>
-                    <option value="transfer">Transfer Bank</option>
-                </select>
-            </div>
-            <div class="form-group" id="cashInputGroup">
-                <label><i class="fas fa-money-bill-wave"></i> Uang Diterima</label>
-                <input type="number" id="paymentCash" placeholder="0" oninput="calculateChange()">
-            </div>
-            <div id="quickCash" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px"></div>
-            <div id="changeDisplay" style="display:none;text-align:center;padding:15px;background:rgba(39,174,96,0.1);border-radius:8px;border:2px solid var(--success);margin-top:10px">
-                <div style="font-size:12px;color:var(--text-light);margin-bottom:5px">Kembalian</div>
-                <div style="font-size:24px;font-weight:bold;color:var(--success)" id="changeAmount">Rp 0</div>
+            <div class="modal-body">
+                <div style="text-align:center;padding:24px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius);margin-bottom:20px;color:white">
+                    <div style="font-size:12px;margin-bottom:8px;opacity:0.9;text-transform:uppercase;letter-spacing:1px;font-weight:500">Total Pembayaran</div>
+                    <div style="font-size:32px;font-weight:800;color:var(--gold-light)" id="paymentTotal">Rp 0</div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-wallet"></i> Metode Pembayaran</label>
+                    <select id="paymentMethod">
+                        <option value="cash">Tunai</option>
+                        <option value="debit">Debit Card</option>
+                        <option value="qris">QRIS</option>
+                        <option value="transfer">Transfer Bank</option>
+                    </select>
+                </div>
+                <div class="form-group" id="cashInputGroup">
+                    <label><i class="fas fa-money-bill-wave"></i> Uang Diterima</label>
+                    <input type="number" id="paymentCash" placeholder="0" oninput="calculateChange()">
+                </div>
+                <div id="quickCash" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px"></div>
+                <div id="changeDisplay" style="display:none;text-align:center;padding:16px;background:var(--success-light);border-radius:var(--radius-sm);border:1px solid var(--success);margin-top:12px">
+                    <div style="font-size:12px;color:var(--text-light);margin-bottom:4px;text-transform:uppercase;font-weight:600">Kembalian</div>
+                    <div style="font-size:24px;font-weight:800;color:var(--success)" id="changeAmount">Rp 0</div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i> Batal</button>
@@ -1053,15 +815,17 @@
         <div class="modal">
             <div class="modal-header">
                 <h2><i class="fas fa-receipt"></i> Struk Pembayaran</h2>
-                <button class="modal-close" onclick="closeModal('receiptModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('receiptModal')"><i class="fas fa-times"></i></button>
             </div>
-            <div class="receipt-container">
-                <div id="receiptContent" class="receipt"></div>
+            <div class="modal-body">
+                <div class="receipt-container">
+                    <div id="receiptContent" class="receipt"></div>
+                </div>
             </div>
             <div class="print-buttons">
                 <button class="btn btn-secondary" onclick="closeModal('receiptModal')"><i class="fas fa-times"></i> Tutup</button>
                 <button class="btn btn-warning" onclick="downloadReceiptPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
-                <button class="btn btn-primary" onclick="printReceipt()"><i class="fas fa-print"></i> Cetak Struk</button>
+                <button class="btn btn-primary" style="background:var(--primary);" onclick="printReceipt()"><i class="fas fa-print"></i> Cetak Struk</button>
             </div>
         </div>
     </div>
@@ -1071,38 +835,44 @@
         <div class="modal">
             <div class="modal-header">
                 <h2 id="productModalTitle"><i class="fas fa-plus"></i> Tambah Produk</h2>
-                <button class="modal-close" onclick="closeModal('productModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
             </div>
-            <input type="hidden" id="productEditId">
-            <div class="form-group">
-                <label><i class="fas fa-tag"></i> Nama Produk</label>
-                <input type="text" id="productName" placeholder="Contoh: Nasi Goreng Spesial">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-layer-group"></i> Kategori</label>
-                <select id="productCategory">
-                    <option value="Makanan">Makanan</option>
-                    <option value="Minuman">Minuman</option>
-                    <option value="Snack">Snack</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-icons"></i> Icon (Emoji)</label>
-                <input type="text" id="productEmoji" placeholder="🍛" maxlength="2">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-tag"></i> Harga Jual (Rp)</label>
-                <input type="number" id="productPrice" placeholder="25000">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-money-bill-wave"></i> Harga Modal (Rp)</label>
-                <input type="number" id="productCost" placeholder="10000">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-box"></i> Stok</label>
-                <input type="number" id="productStock" placeholder="100">
+            <div class="modal-body">
+                <input type="hidden" id="productEditId">
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Nama Produk</label>
+                    <input type="text" id="productName" placeholder="Contoh: Nasi Goreng Spesial">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div class="form-group">
+                        <label><i class="fas fa-layer-group"></i> Kategori</label>
+                        <select id="productCategory">
+                            <option value="Makanan">Makanan</option>
+                            <option value="Minuman">Minuman</option>
+                            <option value="Snack">Snack</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-icons"></i> Icon (Emoji)</label>
+                        <input type="text" id="productEmoji" placeholder="🍛" maxlength="2">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Harga Jual (Rp)</label>
+                        <input type="number" id="productPrice" placeholder="25000">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-money-bill-wave"></i> Harga Modal (Rp)</label>
+                        <input type="number" id="productCost" placeholder="10000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-box"></i> Stok</label>
+                    <input type="number" id="productStock" placeholder="100">
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('productModal')"><i class="fas fa-times"></i> Batal</button>
@@ -1113,19 +883,21 @@
 
     <!-- Petty Cash Modal -->
     <div class="modal-overlay" id="pettyModal">
-        <div class="modal">
+        <div class="modal" style="max-width:450px">
             <div class="modal-header">
                 <h2 id="pettyModalTitle"><i class="fas fa-wallet"></i> Kas Kecil</h2>
-                <button class="modal-close" onclick="closeModal('pettyModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('pettyModal')"><i class="fas fa-times"></i></button>
             </div>
-            <input type="hidden" id="pettyType">
-            <div class="form-group">
-                <label><i class="fas fa-align-left"></i> Keterangan</label>
-                <input type="text" id="pettyDesc" placeholder="Contoh: Beli bahan baku">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-money-bill-wave"></i> Jumlah (Rp)</label>
-                <input type="number" id="pettyAmount" placeholder="50000">
+            <div class="modal-body">
+                <input type="hidden" id="pettyType">
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Keterangan</label>
+                    <input type="text" id="pettyDesc" placeholder="Contoh: Beli bahan baku">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-money-bill-wave"></i> Jumlah (Rp)</label>
+                    <input type="number" id="pettyAmount" placeholder="50000">
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('pettyModal')"><i class="fas fa-times"></i> Batal</button>
@@ -1136,29 +908,31 @@
 
     <!-- User Modal -->
     <div class="modal-overlay" id="userModal">
-        <div class="modal">
+        <div class="modal" style="max-width:450px">
             <div class="modal-header">
                 <h2><i class="fas fa-user-plus"></i> Tambah User</h2>
-                <button class="modal-close" onclick="closeModal('userModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('userModal')"><i class="fas fa-times"></i></button>
             </div>
-            <div class="form-group">
-                <label><i class="fas fa-user"></i> Username</label>
-                <input type="text" id="userUsername" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-id-card"></i> Nama Lengkap</label>
-                <input type="text" id="userFullname" placeholder="Nama Lengkap">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-lock"></i> Password</label>
-                <input type="password" id="userPassword" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-user-tag"></i> Role</label>
-                <select id="userRole">
-                    <option value="kasir">Kasir</option>
-                    <option value="admin">Admin</option>
-                </select>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="userUsername" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> Nama Lengkap</label>
+                    <input type="text" id="userFullname" placeholder="Nama Lengkap">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="userPassword" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user-tag"></i> Role</label>
+                    <select id="userRole">
+                        <option value="kasir">Kasir</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('userModal')"><i class="fas fa-times"></i> Batal</button>
@@ -1172,25 +946,27 @@
         <div class="modal" style="max-width:700px">
             <div class="modal-header">
                 <h2><i class="fas fa-edit"></i> Edit Transaksi</h2>
-                <button class="modal-close" onclick="closeModal('editTransactionModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('editTransactionModal')"><i class="fas fa-times"></i></button>
             </div>
-            <input type="hidden" id="editTxId">
-            <div id="editTxInfo" style="background:var(--bg);padding:15px;border-radius:8px;margin-bottom:15px;font-size:12px"></div>
-            <div style="margin-bottom:15px">
-                <div style="font-weight:700;margin-bottom:10px;color:var(--primary)"><i class="fas fa-list"></i> Daftar Item</div>
-                <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;font-size:11px;font-weight:600;color:var(--text-light);padding:0 10px">
-                    <div>PRODUK</div><div>HARGA</div><div>QTY</div><div></div>
+            <div class="modal-body">
+                <input type="hidden" id="editTxId">
+                <div id="editTxInfo" style="background:var(--bg);padding:16px;border-radius:var(--radius-sm);margin-bottom:16px;font-size:13px"></div>
+                <div style="margin-bottom:16px">
+                    <div style="font-weight:700;margin-bottom:12px;color:var(--text);font-size:14px"><i class="fas fa-list"></i> Daftar Item</div>
+                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;font-size:11px;font-weight:600;color:var(--text-light);padding:0 12px;text-transform:uppercase">
+                        <div>Produk</div><div>Harga</div><div>Qty</div><div></div>
+                    </div>
+                    <div id="editTxItems"></div>
+                    <button class="btn btn-info btn-sm" onclick="openAddItemToEdit()" style="margin-top:12px;width:100%">
+                        <i class="fas fa-plus"></i> Tambah Item
+                    </button>
                 </div>
-                <div id="editTxItems"></div>
-                <button class="btn btn-info btn-sm" onclick="openAddItemToEdit()" style="margin-top:10px;width:100%">
-                    <i class="fas fa-plus"></i> Tambah Item
-                </button>
-            </div>
-            <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;padding:15px;border-radius:8px;margin-bottom:15px">
-                <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>Subtotal:</span><span id="editSubtotal">Rp 0</span></div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>Pajak:</span><span id="editTax">Rp 0</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:20px;font-weight:bold;border-top:2px dashed rgba(255,255,255,0.3);padding-top:10px;margin-top:10px">
-                    <span>TOTAL:</span><span id="editTotal">Rp 0</span>
+                <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;padding:16px;border-radius:var(--radius-sm);margin-bottom:16px">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;opacity:0.9"><span>Subtotal:</span><span id="editSubtotal">Rp 0</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;opacity:0.9"><span>Pajak:</span><span id="editTax">Rp 0</span></div>
+                    <div style="display:flex;justify-content:space-between;font-size:20px;font-weight:700;border-top:1px solid rgba(255,255,255,0.2);padding-top:12px;margin-top:8px">
+                        <span>TOTAL:</span><span id="editTotal">Rp 0</span>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1205,15 +981,17 @@
         <div class="modal" style="max-width:400px">
             <div class="modal-header">
                 <h2><i class="fas fa-plus"></i> Tambah Item</h2>
-                <button class="modal-close" onclick="closeModal('addItemModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('addItemModal')"><i class="fas fa-times"></i></button>
             </div>
-            <div class="form-group">
-                <label>Pilih Produk</label>
-                <select id="addItemSelect"></select>
-            </div>
-            <div class="form-group">
-                <label>Jumlah</label>
-                <input type="number" id="addItemQty" value="1" min="1">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Pilih Produk</label>
+                    <select id="addItemSelect"></select>
+                </div>
+                <div class="form-group">
+                    <label>Jumlah</label>
+                    <input type="number" id="addItemQty" value="1" min="1">
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('addItemModal')"><i class="fas fa-times"></i> Batal</button>
@@ -1232,21 +1010,21 @@
             products: [
                 {id:1,name:'Nasi Goreng Spesial',category:'Makanan',emoji:'🍛',price:30000,cost:12000,stock:50},
                 {id:2,name:'Mie Goreng',category:'Makanan',emoji:'🍜',price:25000,cost:10000,stock:50},
-                {id:3,name:'Ayam Goreng',category:'Makanan',emoji:'',price:28000,cost:15000,stock:30},
+                {id:3,name:'Ayam Goreng',category:'Makanan',emoji:'🍗',price:28000,cost:15000,stock:30},
                 {id:4,name:'Nasi Campur',category:'Makanan',emoji:'🍱',price:32000,cost:14000,stock:40},
                 {id:5,name:'Sate Ayam',category:'Makanan',emoji:'🍢',price:25000,cost:12000,stock:40},
                 {id:6,name:'Burger',category:'Makanan',emoji:'🍔',price:35000,cost:16000,stock:25},
-                {id:7,name:'Es Teh Manis',category:'Minuman',emoji:'',price:8000,cost:2000,stock:100},
+                {id:7,name:'Es Teh Manis',category:'Minuman',emoji:'🥤',price:8000,cost:2000,stock:100},
                 {id:8,name:'Kopi Susu',category:'Minuman',emoji:'☕',price:18000,cost:6000,stock:80},
                 {id:9,name:'Jus Alpukat',category:'Minuman',emoji:'🥑',price:20000,cost:8000,stock:40},
-                {id:10,name:'Es Jeruk',category:'Minuman',emoji:'',price:12000,cost:4000,stock:60},
+                {id:10,name:'Es Jeruk',category:'Minuman',emoji:'🍊',price:12000,cost:4000,stock:60},
                 {id:11,name:'Lemon Tea',category:'Minuman',emoji:'🍋',price:15000,cost:4000,stock:60},
                 {id:12,name:'Matcha Latte',category:'Minuman',emoji:'🍵',price:22000,cost:8000,stock:40},
-                {id:13,name:'French Fries',category:'Snack',emoji:'',price:18000,cost:6000,stock:50},
+                {id:13,name:'French Fries',category:'Snack',emoji:'🍟',price:18000,cost:6000,stock:50},
                 {id:14,name:'Roti Bakar',category:'Snack',emoji:'🍞',price:15000,cost:5000,stock:30},
                 {id:15,name:'Pisang Goreng',category:'Snack',emoji:'🍌',price:12000,cost:4000,stock:40},
                 {id:16,name:'Ice Cream',category:'Dessert',emoji:'🍦',price:20000,cost:8000,stock:30},
-                {id:17,name:'Pancake',category:'Dessert',emoji:'',price:25000,cost:10000,stock:20},
+                {id:17,name:'Pancake',category:'Dessert',emoji:'🥞',price:25000,cost:10000,stock:20},
                 {id:18,name:'Brownies',category:'Dessert',emoji:'🍫',price:22000,cost:9000,stock:25}
             ],
             transactions: [],
@@ -1255,7 +1033,7 @@
         };
 
         let data = {}, currentUser = null, cart = [], activeCategory = 'Semua', currentTransaction = null;
-        let editTxItems = []; // For edit transaction modal
+        let editTxItems = []; 
 
         function loadData() {
             const saved = localStorage.getItem('palmGardenPOS');
@@ -1299,6 +1077,8 @@
 
         function initApp() {
             updateDate();
+            updateClock();
+            setInterval(updateClock, 1000);
             renderCategoryTabs();
             renderPOSProducts();
             renderTransactions();
@@ -1313,6 +1093,11 @@
             const now = new Date();
             const options = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
             document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', options);
+        }
+        
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('liveClock').textContent = now.toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
         }
 
         document.querySelectorAll('.sidebar-menu a').forEach(link => {
@@ -1347,11 +1132,11 @@
             if(search) prods = prods.filter(p=>p.name.toLowerCase().includes(search));
             
             const grid = document.getElementById('posProductsGrid');
-            if(prods.length===0) { grid.innerHTML='<div class="empty-state"><i class="fas fa-box-open"></i><p>Tidak ada produk</p></div>'; return; }
+            if(prods.length===0) { grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-box-open"></i><p>Tidak ada produk</p></div>'; return; }
             
             grid.innerHTML = prods.map(p=>`
                 <div class="product-card" onclick="addToCart(${p.id})">
-                    <div class="product-icon">${p.emoji||''}</div>
+                    <div class="product-icon">${p.emoji||'📦'}</div>
                     <div class="product-name">${p.name}</div>
                     <div class="product-price">Rp ${p.price.toLocaleString('id-ID')}</div>
                     <div class="product-stock"><i class="fas fa-box"></i> Stok: ${p.stock}</div>
@@ -1388,7 +1173,7 @@
             const btn = document.getElementById('btnPay');
             
             if(cart.length===0) {
-                container.innerHTML = '<div class="empty-state"><i class="fas fa-shopping-cart"></i><p>Keranjang masih kosong</p></div>';
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-shopping-basket"></i><p>Keranjang masih kosong</p></div>';
                 summary.style.display = 'none';
                 btn.disabled = true;
                 return;
@@ -1396,7 +1181,7 @@
 
             container.innerHTML = cart.map(item=>`
                 <div class="cart-item">
-                    <div class="cart-item-icon">${item.emoji||''}</div>
+                    <div class="cart-item-icon">${item.emoji||'📦'}</div>
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
                         <div class="cart-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
@@ -1407,7 +1192,7 @@
                         <button class="qty-btn" onclick="updateCartQty(${item.productId},1)">+</button>
                     </div>
                     <div class="cart-item-total">Rp ${(item.price*item.qty).toLocaleString('id-ID')}</div>
-                    <button class="cart-item-remove" onclick="removeFromCart(${item.productId})"><i class="fas fa-trash"></i></button>
+                    <button class="cart-item-remove" onclick="removeFromCart(${item.productId})"><i class="fas fa-times"></i></button>
                 </div>
             `).join('');
 
@@ -1583,7 +1368,6 @@
             }
         }
 
-        // ==================== TRANSACTION CRUD (ADMIN) ====================
         function renderTransactions() {
             const from = document.getElementById('filterDateFrom').value;
             const to = document.getElementById('filterDateTo').value;
@@ -1638,7 +1422,6 @@
             if(tx) { currentTransaction = tx; showReceipt(tx); }
         }
 
-        // EDIT TRANSACTION
         function openEditTransaction(id) {
             if(currentUser.role !== 'admin') { alert('Hanya admin yang dapat mengedit transaksi!'); return; }
             const tx = data.transactions.find(x=>x.id===id);
@@ -1669,7 +1452,7 @@
             
             container.innerHTML = editTxItems.map((item, idx) => {
                 const product = data.products.find(p=>p.id===item.productId);
-                const maxStock = product ? product.stock + item.qty : 999; // Allow returning to original stock + current
+                const maxStock = product ? product.stock + item.qty : 999; 
                 return `
                     <div class="edit-item-row">
                         <div class="item-name">${item.emoji||'📦'} ${item.name}</div>
@@ -1773,23 +1556,19 @@
             const tx = data.transactions.find(x=>x.id===txId);
             if(!tx) return;
             
-            // Calculate old stock usage
             const oldItems = tx.items;
             const newItems = editTxItems.map(i => ({...i}));
             
-            // Return old stock
             oldItems.forEach(item => {
                 const p = data.products.find(x=>x.id===item.productId);
                 if(p) p.stock += item.qty;
             });
             
-            // Deduct new stock
             newItems.forEach(item => {
                 const p = data.products.find(x=>x.id===item.productId);
                 if(p) {
                     if(p.stock < item.qty) {
                         alert(`Stok ${p.name} tidak mencukupi!`);
-                        // Rollback
                         newItems.forEach(ni => {
                             const np = data.products.find(x=>x.id===ni.productId);
                             if(np) np.stock += ni.qty;
@@ -1804,7 +1583,6 @@
                 }
             });
             
-            // Update transaction
             const newSubtotal = newItems.reduce((s,x)=>s+(x.price*x.qty),0);
             const newTax = Math.round(newSubtotal*data.settings.tax/100);
             const newTotal = newSubtotal + newTax;
@@ -1824,7 +1602,6 @@
             alert('Transaksi berhasil diupdate!');
         }
 
-        // CANCEL TRANSACTION
         function cancelTransaction(id) {
             if(currentUser.role !== 'admin') { alert('Hanya admin yang dapat membatalkan transaksi!'); return; }
             const tx = data.transactions.find(x=>x.id===id);
@@ -1836,19 +1613,16 @@
             
             if(!confirm(`Yakin ingin membatalkan transaksi ${tx.invoice}?\n\nStok akan dikembalikan dan uang tidak akan masuk.`)) return;
             
-            // Return stock
             tx.items.forEach(item => {
                 const p = data.products.find(x=>x.id===item.productId);
                 if(p) p.stock += item.qty;
             });
             
-            // Update transaction status
             tx.status = 'cancelled';
             tx.cancelledAt = new Date().toISOString();
             tx.cancelledBy = currentUser.fullname;
             tx.cancelReason = reason.trim();
             
-            // Add refund entry to petty cash (optional - for tracking)
             data.pettyCash.push({
                 id: Date.now(),
                 date: new Date().toISOString().split('T')[0],
@@ -1866,7 +1640,6 @@
             alert(`Transaksi ${tx.invoice} berhasil dibatalkan!\nStok dikembalikan & refund dicatat di kas kecil.`);
         }
 
-        // RESTORE CANCELLED TRANSACTION
         function restoreTransaction(id) {
             if(currentUser.role !== 'admin') { alert('Hanya admin yang dapat me-restore transaksi!'); return; }
             const tx = data.transactions.find(x=>x.id===id);
@@ -1874,7 +1647,6 @@
             
             if(!confirm(`Yakin ingin me-restore transaksi ${tx.invoice}?\n\nStok akan dikurangi kembali.`)) return;
             
-            // Check stock availability
             for(let item of tx.items) {
                 const p = data.products.find(x=>x.id===item.productId);
                 if(!p || p.stock < item.qty) {
@@ -1883,16 +1655,13 @@
                 }
             }
             
-            // Deduct stock
             tx.items.forEach(item => {
                 const p = data.products.find(x=>x.id===item.productId);
                 if(p) p.stock -= item.qty;
             });
             
-            // Remove refund entry from petty cash
             data.pettyCash = data.pettyCash.filter(pc => pc.referenceTx !== tx.invoice);
             
-            // Update transaction status
             tx.status = 'completed';
             tx.cancelledAt = null;
             tx.cancelledBy = null;
@@ -1908,7 +1677,6 @@
             alert(`Transaksi ${tx.invoice} berhasil di-restore!`);
         }
 
-        // ==================== PRODUCTS ====================
         function renderProducts() {
             const tbody = document.getElementById('productsBody');
             if(!data.products.length) {
@@ -1993,7 +1761,6 @@
             }
         }
 
-        // ==================== PETTY CASH ====================
         function renderPettyCash() {
             const totalIn = data.pettyCash.filter(p=>p.type==='in').reduce((s,p)=>s+p.amount,0);
             const totalOut = data.pettyCash.filter(p=>p.type==='out').reduce((s,p)=>s+p.amount,0);
@@ -2056,7 +1823,6 @@
             }
         }
 
-        // ==================== REPORTS ====================
         function renderReport() {
             const period = document.getElementById('reportPeriod').value;
             document.getElementById('customDateFrom').style.display = period==='custom'?'block':'none';
@@ -2092,7 +1858,6 @@
                     break;
             }
             
-            // Only count completed transactions
             const filteredTx = data.transactions.filter(t=>{
                 const txDate = t.date.split('T')[0];
                 return txDate>=startDate && txDate<=endDate && t.status === 'completed';
@@ -2117,7 +1882,7 @@
                         <div class="stat-info"><h3 style="color:var(--danger)">Rp ${totalCOGS.toLocaleString('id-ID')}</h3><p>HPP (Modal Produk)</p></div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon" style="background:linear-gradient(135deg,var(--warning),#f1c40f)"><i class="fas fa-wallet"></i></div>
+                        <div class="stat-icon gold"><i class="fas fa-wallet"></i></div>
                         <div class="stat-info"><h3 style="color:var(--danger)">Rp ${pettyOut.toLocaleString('id-ID')}</h3><p>Kas Kecil Keluar</p></div>
                     </div>
                     <div class="stat-card">
@@ -2130,12 +1895,12 @@
             document.getElementById('reportBody').innerHTML = `
                 <tr><td><i class="fas fa-receipt"></i> Total Transaksi (Selesai)</td><td><strong>${filteredTx.length} transaksi</strong></td></tr>
                 <tr><td><i class="fas fa-shopping-bag"></i> Total Item Terjual</td><td><strong>${totalItems} item</strong></td></tr>
-                <tr style="background:#f5f7f6"><td><i class="fas fa-arrow-up" style="color:var(--success)"></i> Pendapatan Kotor</td><td><strong style="color:var(--success)">Rp ${totalRevenue.toLocaleString('id-ID')}</strong></td></tr>
+                <tr style="background:var(--bg)"><td><i class="fas fa-arrow-up" style="color:var(--success)"></i> Pendapatan Kotor</td><td><strong style="color:var(--success)">Rp ${totalRevenue.toLocaleString('id-ID')}</strong></td></tr>
                 <tr><td><i class="fas fa-box" style="color:var(--danger)"></i> HPP (Harga Modal)</td><td><strong style="color:var(--danger)">- Rp ${totalCOGS.toLocaleString('id-ID')}</strong></td></tr>
                 <tr><td><i class="fas fa-percentage" style="color:var(--danger)"></i> Pajak</td><td><strong style="color:var(--danger)">- Rp ${totalTax.toLocaleString('id-ID')}</strong></td></tr>
-                <tr style="background:#f5f7f6"><td><strong><i class="fas fa-calculator"></i> Laba Kotor</strong></td><td><strong>Rp ${grossProfit.toLocaleString('id-ID')}</strong></td></tr>
+                <tr style="background:var(--bg)"><td><strong><i class="fas fa-calculator"></i> Laba Kotor</strong></td><td><strong>Rp ${grossProfit.toLocaleString('id-ID')}</strong></td></tr>
                 <tr><td><i class="fas fa-wallet" style="color:var(--danger)"></i> Beban Kas Kecil (incl. refund)</td><td><strong style="color:var(--danger)">- Rp ${pettyOut.toLocaleString('id-ID')}</strong></td></tr>
-                <tr style="background:linear-gradient(135deg,rgba(39,174,96,0.1),rgba(46,204,113,0.1));border-top:3px solid var(--success)"><td><strong><i class="fas fa-chart-line"></i> LABA BERSIH</strong></td><td><strong style="color:${netProfit>=0?'var(--success)':'var(--danger)'};font-size:18px">Rp ${netProfit.toLocaleString('id-ID')}</strong></td></tr>
+                <tr style="background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(52,211,153,0.1));border-top:3px solid var(--success)"><td><strong><i class="fas fa-chart-line"></i> LABA BERSIH</strong></td><td><strong style="color:${netProfit>=0?'var(--success)':'var(--danger)'};font-size:18px">Rp ${netProfit.toLocaleString('id-ID')}</strong></td></tr>
             `;
         }
 
@@ -2157,7 +1922,6 @@
             }
         }
 
-        // ==================== SETTINGS ====================
         function loadSettings() {
             document.getElementById('settingName').value = data.settings.name;
             document.getElementById('settingAddress').value = data.settings.address;
